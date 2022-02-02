@@ -1,5 +1,4 @@
 /****************************************************************
- 
     Following is the class structure of the Node class:
 
         class Node
@@ -13,7 +12,6 @@
 		        this->next = NULL;
 	        }
         };
-
 *****************************************************************/
 
 Node *reverseLinkedListRec(Node *head){
@@ -28,4 +26,32 @@ Node *reverseLinkedListRec(Node *head){
     temp->next=head;
     head->next=NULL;
     return smallHead;   
+}
+
+/**********OR**********/
+
+class Pair{
+    public:
+	Node* head;
+    Node* tail;
+};
+
+Pair reverse(Node* head){
+    if(head==NULL || head->next==NULL){
+        Pair ans;
+        ans.head=head;
+        ans.tail=head;
+        return ans;
+    }
+    Pair smallAns=reverse(head->next);
+    smallAns.tail->next=head;
+    head->next=NULL;
+    Pair ans;
+    ans.head=smallAns.head;
+    ans.tail=head;
+    return ans;
+}
+
+Node *reverseLinkedListRec(Node *head){
+    return reverse(head).head;
 }
